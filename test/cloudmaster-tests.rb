@@ -59,15 +59,15 @@ class CloudmasterTests < Test::Unit::TestCase
   end
 
   # Delete a message from primes work queue, given its id.
-  def del_message(id)
+  def del_message(receipt_handle)
     url = "http://queue.amazonaws.com/A13T024T56MRDC/primes-work-test"
-    @sqs.delete_message(url, id)
+    @sqs.delete_message(url, receipt_handle)
   end
 
   # Both receive and delete message from primes work queue.
   def consume_message
     msg = rec_message
-    del_message(msg.first[:id])
+    del_message(msg.first[:receipt_handle])
   end
 
   # Send a message on the primes status queue.
@@ -234,7 +234,7 @@ class CloudmasterTests < Test::Unit::TestCase
     @ps.run(Clock.at(65))
     assert_equal(1, @ec2.count)
     msg = rec_message
-    del_message(msg.first[:id])
+    del_message(msg.first[:receipt_handle])
     # let it run longer -- shouled not create another
     @ps.run(Clock.at(125))
     assert_equal(1, @ec2.count)

@@ -63,7 +63,7 @@ begin
         report = YAML.load(body)
         dump_file(filename, report)
         print_report(report)
-        sqs.delete_message(url, res[0][:id])
+        sqs.delete_message(url, res[0][:receipt_handle])
       end
     end
   end

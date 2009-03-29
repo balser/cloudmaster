@@ -205,7 +205,7 @@ module Cloudmaster
           @reporter.info(msg[:message], msg[:instance_id])
         end
         # delete the message once it has been processed
-        @status_queue.delete_message(message[:id])
+        @status_queue.delete_message(message[:receipt_handle])
       end
       messages.size
     end

@@ -161,7 +161,7 @@ module Cloudmaster
     # Raises an exception if none found.
     def setup_image(key, name)
       return nil unless name
-      name = append_env(@config[name]) + ".img"
+      name = append_env(@config[name])
       image = EC2ImageEnumerator.new.find_image_id_by_name(name)
       raise "Bad configuration -- no image #{name}" if !image
       @config[key] = image if key

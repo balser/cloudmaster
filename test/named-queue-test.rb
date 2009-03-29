@@ -45,7 +45,7 @@ class NamedQueueTests < Test::Unit::TestCase
     msgs = nq.read_messages(1)
     assert_equal(1, msgs.size)
     assert_equal(message, msgs.first[:body])    
-    nq.delete_message(msgs.first[:id])
+    nq.delete_message(msgs.first[:receipt_handle])
     msgs = nq.read_messages(1)
     assert_equal(0, msgs.size)
   end
@@ -60,7 +60,7 @@ class NamedQueueTests < Test::Unit::TestCase
     assert_equal(1, msgs.size)
     assert_equal(message, msgs.first[:body])    
     msgs = nq.read_messages(1)
-    nq.delete_message(msgs.first[:id])
+    nq.delete_message(msgs.first[:receipt_handle])
     msgs = nq.read_messages(1)
     assert_equal(0, msgs.size)
   end

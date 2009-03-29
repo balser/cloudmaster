@@ -26,7 +26,7 @@ module Cloudmaster
         messages.each do |message|
           msg = YAML.load(message[:body])
           n += msg[:adjust]
-	  @manual_queue.delete_message(message[:id])
+	  @manual_queue.delete_message(message[:receipt_handle])
         end
       end
       # the value of the while is n

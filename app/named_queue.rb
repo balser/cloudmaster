@@ -45,8 +45,8 @@ module Cloudmaster
     end
     
     # Delete a message from the queue given its id.
-    def delete_message(id)
-      @sqs.delete_message(@queue, id)
+    def delete_message(receipt_handle)
+      @sqs.delete_message(@queue, receipt_handle)
     end
 
     # Read and discard all messages on the queue.
@@ -57,7 +57,7 @@ module Cloudmaster
         msgs = read_messages
         break if msgs.size == 0
         n += 1
-        msgs.each {|msg| delete_message(msg[:id])}
+        msgs.each {|msg| delete_message(msg[:receipt_handle])}
       end
       n
     end

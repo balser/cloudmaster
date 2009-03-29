@@ -93,7 +93,7 @@ class PrimeGenerator
     end_time = Time.now
 
     if primes
-      @sqs.delete_message(@work_queue, msg_id)
+      @sqs.delete_message(@work_queue, msg[:receipt_handle])
       send_log_message "Processed: #{work_id} #{n} primes (#{primes.last}) in #{(end_time-start_time).round}"
     end
   end

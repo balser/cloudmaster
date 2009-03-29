@@ -82,10 +82,10 @@ pp err
       end
     end
 
-    def delete_message(queue_url, message_id)
+    def delete_message(queue_url, receipt_handle)
       retry_time = 1
       begin
-        @sqs.delete_message(queue_url, message_id)
+        @sqs.delete_message(queue_url, receipt_handle)
       rescue AWS::ServiceError => err
         retry if retry_time = retry?(err, retry_time)
         report_error false
