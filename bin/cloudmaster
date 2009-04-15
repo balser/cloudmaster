@@ -15,7 +15,7 @@ args = ARGV
 while args.size > 0
   a = args.shift
   case a
-  when "-?": puts "usage: run-cloudmaster [-v] [-l logfile] [-c configfile] [-p pool]"
+  when "-?": puts "usage: cloudmaster [-v] [-l logfile] [-c configfile] [-p pool]"
              exit 1
   when "-v": verbose = true
   when "-l": logfile = args.shift

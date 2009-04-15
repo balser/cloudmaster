@@ -8,7 +8,7 @@ unit-test:
 	cd $(AWS_HOME)/test; suite
 
 run:
-	cd $(AWS_HOME)/app; run-cloudmaster
+	cd $(AWS_HOME)/bin; cloudmaster
 
 
 request-prime:

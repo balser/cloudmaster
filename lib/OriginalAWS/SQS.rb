@@ -120,7 +120,6 @@ class SQS
       })
 
     response = do_query(HTTP_METHOD, URI.parse(queue_url), parameters)
-
     msgs = []
 
     xml_doc = REXML::Document.new(response.body)
@@ -130,7 +129,7 @@ class SQS
         :id => msg.elements['MessageId'].text,
         :receipt_handle => msg.elements['ReceiptHandle'].text,
         :md5_of_body => msg.elements['MD5OfBody'].text,
-        :body => msg.elements['MessageBody'].text
+        :body => msg.elements['Body'].text
       }
     end
 
