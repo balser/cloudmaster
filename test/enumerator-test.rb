@@ -1,4 +1,4 @@
-$:.unshift(File.join(ENV['AWS_HOME'], "app"))
+$:.unshift(File.expand_path('../app', File.dirname(__FILE__)))
 require 'test/unit'
 require 'MockAWS/clock'
 require 'logger_factory'

@@ -1,4 +1,4 @@
-$:.unshift(File.join(ENV['AWS_HOME'], "lib", "OriginalAWS"))
+$:.unshift(File.expand_path('../OriginalAWS', File.dirname(__FILE__)))
 require 'OriginalAWS/SQS'
 
 module AWS

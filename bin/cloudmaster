@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-$:.unshift File.join(ENV['AWS_HOME'], "app")
+$:.unshift File.expand_path('../app', File.dirname(__FILE__))
 
 require 'configuration'
 require 'aws_context'
