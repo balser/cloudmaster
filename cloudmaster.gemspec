@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cloudmaster}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cchayden", "vadimj", "Mick Staugaard"]
-  s.date = %q{2009-04-15}
+  s.date = %q{2009-04-20}
   s.default_executable = %q{cloudmaster}
   s.email = %q{mick@staugaard.com}
   s.executables = ["cloudmaster"]
