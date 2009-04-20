@@ -9,6 +9,7 @@ begin
     gem.email = "mick@staugaard.com"
     gem.homepage = "http://github.com/staugaard/cloudmaster"
     gem.authors = ["cchayden", "vadimj", "Mick Staugaard"]
+    gem.require_paths = ["lib", "app"]
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

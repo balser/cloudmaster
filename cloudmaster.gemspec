@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cloudmaster}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["cchayden", "vadimj", "Mick Staugaard"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.homepage = %q{http://github.com/staugaard/cloudmaster}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
-  s.require_paths = ["lib"]
+  s.require_paths = ["lib", "app"]
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Creates, terminates, and monitors Amazon EC2 instances. Creates more instance to meet increased demand, and terminates them when they are no longer needed. Any number of pools of instances may be managed. Provides periodic status reports. Three policies are provided: a fixed size pool policy, a job-oriented batch policy, and a resource-limited stateful policy. The user can define additional policies. To get started, see http://code.google.com/p/cloudmaster/wiki/Introduction}
 
