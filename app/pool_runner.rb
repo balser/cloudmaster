@@ -20,9 +20,6 @@ module Cloudmaster
     def initialize(config)
       @config = config
       @pool_managers = []
-      Signal.trap("INT") do
-        self.shutdown
-      end
     end
 
     # Create each of the pool managers described in the configuration.

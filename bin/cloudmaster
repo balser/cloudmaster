@@ -1,45 +1,54 @@
 #!/usr/bin/ruby
 $:.unshift File.expand_path('../app', File.dirname(__FILE__))
 
+require 'rubygems'
+require 'daemons'
 require 'configuration'
 require 'aws_context'
 require 'configuration'
 require 'pool_runner'
 require 'pp'
 
-# Get optional args specifying what server to manage.
-verbose = false
-config_files = []
-opts = []
-args = ARGV
-while args.size > 0
-  a = args.shift
-  case a
-  when "-?": puts "usage: cloudmaster [-v] [-l logfile] [-c configfile] [-p pool]"
-             exit 1
-  when "-v": verbose = true
-  when "-l": logfile = args.shift
-  when "-c": config_files << args.shift
-  when "-p": opts << args.shift.to_sym
+options = {
+  :dir_mode   => :system,
+  :multiple   => false,
+  :ontop      => false,
+  :mode       => :load,
+  :backtrace  => true,
+  :monitor    => false,
+  :log_output => true,
+}
+
+Daemons.run_proc('cloudmaster', options) do
+  # Get optional args specifying what server to manage.
+  verbose = false
+  config_files = []
+  opts = []
+  args = ARGV
+  while args.size > 0
+    a = args.shift
+    case a
+    when "-?": puts "usage: cloudmaster [-v] [-l logfile] [-c configfile] [-p pool]"
+               exit 1
+    when "-v": verbose = true
+    when "-l": logfile = args.shift
+    when "-c": config_files << args.shift
+    when "-p": opts << args.shift.to_sym
+    end
   end
+  opts.uniq!
+
+  LoggerFactory.setup(logfile, 'cloudmaster')
+  AwsContext.setup(:retry)
+
+  config = Cloudmaster::Configuration.new(config_files, opts)
+
+  if verbose
+    puts "Environment: #{config.aws[:aws_env]}" if config.aws[:aws_env]
+    puts "Log file: #{logfile}" if logfile
+    puts "Config file: #{config_files.join(' ')}" if config_files.size > 0
+  end
+
+  # Run a pool supervisor
+  Cloudmaster::PoolRunner.new(config).run
 end
-opts.uniq!
-
-LoggerFactory.setup(logfile, 'cloudmaster')
-AwsContext.setup(:retry)
-
-config = Cloudmaster::Configuration.new(config_files, opts)
-
-if verbose
-  puts "Environment: #{config.aws[:aws_env]}" if config.aws[:aws_env]
-  puts "Log file: #{logfile}" if logfile
-  puts "Config file: #{config_files.join(' ')}" if config_files.size > 0
-end
-
-Signal.trap("TERM") do
-  # re-read the config file on SIGTERM -- into existing config object
-  config.refresh
-end
-
-# Run a pool supervisor
-Cloudmaster::PoolRunner.new(config).run
